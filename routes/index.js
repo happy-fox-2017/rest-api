@@ -4,7 +4,7 @@ var c_user = require('../controllers/c_user.js')
 var authorization = require('../controllers/auth')
 
 router.get('/', function(req,res) {
-  res.send('alive')
+  res.send('https://erwin-rest-api.herokuapp.com/ | https://git.heroku.com/erwin-rest-api.git')
 })
 
 router.post('/api/signup', c_user.signup)
