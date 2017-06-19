@@ -26,4 +26,5 @@ With only npm :
 **
 
 Access the website vi http://localhost:3000 or API via http://localhost:3000/api
+Access heroku : https://myrestapi-p2d1.herokuapp.com
 
