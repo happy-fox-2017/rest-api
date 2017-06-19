@@ -14,6 +14,8 @@ auth.adminOnly = function(req, res, next){
     } else {
       res.send('You are not authorized!, Just admin can make this methode');
     }
+  } else {
+    res.send('You are not login, please login first!')
   }
 }
 

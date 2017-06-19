@@ -9,6 +9,6 @@ router.get('/:id', user.show);
 router.post('/signup', user.signup);
 router.post('/signin', passport.authenticate('local', {session:false}), user.signin);
 router.put('/:id', midleware.adminOnly, user.update);
-
+router.delete('/:id', midleware.adminOnly, user.delete);
 
 module.exports = router;

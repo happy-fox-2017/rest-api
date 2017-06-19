@@ -6,6 +6,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var passport = require('passport');
 var passwordHash = require('password-hash');
+var bcrypt = require('bcrypt');
 var LocalStore = require('passport-local');
 var models = require('./models');
 
@@ -19,13 +20,14 @@ passport.use(new LocalStore((username, password, done)=>{
     }
   })
   .then((user)=>{
-    if(!user){
+    console.log('ini isi user di passport', user);
+    if(!user.dataValues){
       return done(null, {message: 'Username not found, please sign up first!'});
     }
-    if(!passwordHash.verify(password, user.password)){
+    if(!bcrypt.compareSync(password, user.dataValues.password)){
       return done(null, {message: 'Your Password is wrong!'});
     }
-    return done(null, user);
+    return done(null, user.dataValues);
   })
   .catch((err)=>{
     return done(null, {message: 'Something Wrong!', err: err});
