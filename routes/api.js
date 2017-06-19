@@ -4,10 +4,35 @@ const db = require('../models');
 
 /* GET users listing. */
 router.post('/signup', function(req, res, next) {
-
+  db.User.create({
+    username: req.body.username,
+    password: req.body.password,
+    email: req.body.email,
+    createdAt: new Date(),
+    updatedAt: new Date()
+  }).then( data => {
+    res.send("\nberhasil di buat")
+  }).catch( err => {
+    res.send(err)
+  })
 });
 
 router.post('/signin', function(req, res, next) {
+  db.User.find({
+    where: {
+      username: req.body.username
+    }
+  }).then( data => {
+    if (data == null) {
+      res.send('username tidak ditemukan')
+    } else {
+      if (req.body.password == data.password) {
+        res.send("berhasil masuk")
+      } else {
+        res.send("password salah")
+      }
+    }
+  })
 
 });
 
