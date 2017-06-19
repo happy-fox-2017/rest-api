@@ -1,7 +1,7 @@
 var jwt = require('jsonwebtoken')
 
 var userVerify = function (req,res,next) {
-  jwt.verify(req.headers.token, 'Lorem ipsum dolor sit amet, consectetur adipisicing elit',function (err,decoded) {
+  jwt.verify(req.headers.token, process.env.JWT,function (err,decoded) {
     if (err) {
       res.send(err)
     } else {

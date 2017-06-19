@@ -9,5 +9,6 @@ router.get('/users', jwtVerify.userVerify, jwtVerify.adminVerify, usersControlle
 router.delete('/users/:id', jwtVerify.userVerify, usersControllers.deleteUser)
 router.get('/users/:id', jwtVerify.userVerify, usersControllers.getUser)
 router.patch('/users/:id', jwtVerify.userVerify, usersControllers.updateUser)
+router.post('/api/users', jwtVerify.userVerify, jwtVerify.adminVerify, usersControllers.signUpAdmin)
 
 module.exports = router;

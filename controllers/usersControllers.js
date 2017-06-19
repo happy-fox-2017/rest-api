@@ -37,7 +37,7 @@ var signIn = function (req,res) {
       res.send({msg: `Username ${req.body.username} not found`})
     } else {
       if (user.password == hash(req.body.password)) {
-        res.send({token: jwt.sign({id: user.id, is_admin : user.is_admin}, 'Lorem ipsum dolor sit amet, consectetur adipisicing elit')})
+        res.send({token: jwt.sign({id: user.id, is_admin : user.is_admin}, process.env.JWT)})
       } else {
         res.status(401).send({msg: `Password not match for username ${req.body.username}`})
       }
@@ -164,11 +164,26 @@ var updateUser = function (req,res) {
   }
 }
 
+var signUpAdmin = function (req,res) {
+  db.User.create({
+    username : req.body.username,
+    password : hash(req.body.password),
+    is_admin : true
+  })
+  .then(function (user) {
+    res.send(user)
+  })
+  .catch(function (err) {
+    res.send(err)
+  })
+}
+
 module.exports = {
   signUp,
   signIn,
   getAll,
   deleteUser,
   getUser,
-  updateUser
+  updateUser,
+  signUpAdmin
 };
