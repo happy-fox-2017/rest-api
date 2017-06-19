@@ -1,10 +1,11 @@
 var db = require('../models')
 var jwt = require('jsonwebtoken')
+require('dotenv').config()
 
 var authAdmin = function(req, res, next) {
   let token = req.headers.token
   if(token) {
-    jwt.verify(token, 'Myscret24@!!createisds!okdoskdokaDONTcop!!', (err, decoded) => {
+    jwt.verify(token, process.env.secret, (err, decoded) => {
       if(!err) {
         if(decoded.role.toLowerCase() == "admin") {
           next()
@@ -23,7 +24,7 @@ var authAdmin = function(req, res, next) {
 var authUser = function(req, res, next) {
   let token = req.headers.token
   if(token) {
-    jwt.verify(token, 'Myscret24@!!createisds!okdoskdokaDONTcop!!', (err, decoded) => {
+    jwt.verify(token, process.env.secret, (err, decoded) => {
       if(!err) {
         if(decoded.role.toLowerCase() == "user") {
           next()
@@ -42,7 +43,7 @@ var authUser = function(req, res, next) {
 var all = function(req, res, next) {
   let token = req.headers.token
   if(token) {
-    jwt.verify(token, 'Myscret24@!!createisds!okdoskdokaDONTcop!!', (err, decoded) => {
+    jwt.verify(token, process.env.secret, (err, decoded) => {
       if(!err) {
         if(decoded.role.toLowerCase() == "user" || decoded.role.toLowerCase() == "admin") {
           next()
