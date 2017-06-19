@@ -4,6 +4,7 @@
 This simple authentcation API meant to make a simple CRUD with an authentcation system
 
 #### Setup
+https://api-sendiri.herokuapp.com/
 
 ##### Hint
 The default database used is postgres but you can costom it with any sequelize-supported database such as:
