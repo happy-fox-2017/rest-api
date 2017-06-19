@@ -27,3 +27,7 @@ Instructions on how to use them in your own application are linked below.
 | /api/users | POST | Create a user (ADMIN ONLY) |
 | /api/users/:id | DELETE | Delete a user (ADMIN ONLY) |
 | /api/users/:id | PUT | Update a user with a new info (ADMIN AND AUTHENTICATED USER ONLY) |
+
+### Licensed
+
+this software is free of license, maybe.

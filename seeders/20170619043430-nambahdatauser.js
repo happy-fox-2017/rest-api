@@ -16,36 +16,42 @@ module.exports = {
       username: "sidik",
       password: "123Uhuy",
       email: "sidik@uhuy.com",
+      role: "admin",
       createdAt: new Date(),
       updatedAt: new Date()
     }, {
       username: "diksi",
       password: "123Uhuy",
       email: "diksi@uhuy.com",
+      role: "users",
       createdAt: new Date(),
       updatedAt: new Date()
     }, {
       username: "dikhi",
       password: "123Uhuy",
       email: "dikhi@uhuy.com",
+      role: "users",
       createdAt: new Date(),
       updatedAt: new Date()
     }, {
       username: "dayat",
       password: "123Uhuy",
       email: "dayat@uhuy.com",
+      role: "users",
       createdAt: new Date(),
       updatedAt: new Date()
     }, {
       username: "sidki",
       password: "123Uhuy",
       email: "sidki@uhuy.com",
+      role: "users",
       createdAt: new Date(),
       updatedAt: new Date()
     }, {
       username: "seamag",
       password: "123Uhuy",
       email: "seamag@uhuy.com",
+      role: "users",
       createdAt: new Date(),
       updatedAt: new Date()
     }])
