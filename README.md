@@ -30,9 +30,12 @@ List of Filter routes :
 ***
 
 ##Usage
+
 With only npm :
-'npm install'
+```
+npm install
 npm start
 npm run dev
+```
 
 Access the website via http://localhost:3000 or API via http://localhost:3000/api
