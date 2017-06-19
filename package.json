@@ -15,7 +15,7 @@
     "jsonwebtoken": "^7.4.1",
     "morgan": "~1.8.1",
     "pg": "^6.2.4",
-    "sequelize": "^4.1.0",
+    "sequelize": "^3.30.0",
     "sequelize-cli": "^2.7.0",
     "serve-favicon": "~2.4.2"
   }
