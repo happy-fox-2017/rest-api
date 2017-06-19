@@ -72,17 +72,18 @@ var getOne = function (req,res) {
 }
 
 var create = function (req,res) {
+  let hash = bcrypt.hashSync(req.body.password, saltRounds)
   db.User.create({
     name : req.body.name,
     email : req.body.email,
-    password : req.body.password
+    password : hash,
+    role : req.body.role
   }).then(user => {
     res.send(user)
   }).catch(err => {
     res.send(err)
   })
 }
-
 
 var remove = function (req,res) {
   db.User.destroy({where : {id : req.params.id}})
@@ -94,26 +95,14 @@ var update = function (req,res) {
   db.User.update(
     {
       name : req.body.name,
-      email : req.body.email,
-      password : req.body.password
+      email : req.body.email
     },
     {where : {id : req.params.id}}
   ).then(user => {
     res.send(`user ${req.body.name} updated`)
-  }).catch(user => {
+  }).catch(err => {
     res.send(err)
   })
 }
-
-// var patch = function () {
-//   let attrib = req.body.attrib
-//   let value = req.body.value
-//   db.User.update(
-//     {attrib : `'${value}'`},
-//     {where : {id : req.params.id}}
-//   ).then(user => {
-//     res.send(`${user} updated`)
-//   }).catch(err => res.send(err))
-// }
 
 module.exports = {getAll,getOne,create,remove,update,search,signin,signup}

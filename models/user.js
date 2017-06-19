@@ -5,21 +5,9 @@ module.exports = function(sequelize, DataTypes) {
     email: {
       type : DataTypes.STRING,
       allowNull : false,
+      unique : true,
       validate : {
-        isEmail : true,
-        isUnique : function (value, next) {
-          let self = this
-          User.findOne({where : {email : value}})
-          .then(user => {
-            if (user && self.id !== user.id) {
-              return next("email already used")
-            }
-            return next()
-          })
-          .catch(err => {
-            return next(err)
-          })
-        }
+        isEmail : true
       }
     },
     password: {
