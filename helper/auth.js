@@ -10,7 +10,7 @@ var authAll = function (req,res,next) {
   if (decode) {
     next()
   } else {
-    res.send("gagal decode")
+    res.send("You dont authorized")
   }
 }
 
@@ -23,13 +23,12 @@ var authUser = function (req,res,next) {
   if (decode && decode.user.role == "user") {
     next()
   } else {
-    res.send("role kamu bukan user")
+    res.send("You dont authorized")
   }
 }
 
 var authAdmin = function (req,res,next) {
   let token = req.headers.token
-  console.log(`--------masuk auth admin`);
   if (!token) {
     res.send('belum sign in')
   }
@@ -37,7 +36,7 @@ var authAdmin = function (req,res,next) {
   if (decode && decode.role == "admin") {
     next()
   } else {
-    res.send("salah token")
+    res.send("You dont authorized")
   }
 }
 

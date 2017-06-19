@@ -8,8 +8,7 @@ var signup = function (req,res) {
   db.User.create({
     name : req.body.name,
     email : req.body.email,
-    password : hash,
-    role : req.body.role
+    password : hash
   }).then(user => {
     res.send(user)
   }).catch(err => {
