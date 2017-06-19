@@ -6,7 +6,6 @@ var salt = bcrypt.genSaltSync(saltRounds);
 
 var signup = function (req, res, next) {
 
-  console.log('ini db ->',db);
   var hash = bcrypt.hashSync(req.body.password, salt);
   db.user.create({
     name: req.body.name,
@@ -42,10 +41,11 @@ var signin = function (req, res, next) {
 }
 
 var add = function (req, res, next) {
+  var hash = bcrypt.hashSync(req.body.password, salt);
   db.user.create({
     name: req.body.name,
     username: req.body.username,
-    password: req.body.password,
+    password: hash,
     role: req.body.role,
   })
   .then(result => {
@@ -62,10 +62,12 @@ var remove = function (req, res, next) {
   .then(result => {
     db.user.destroy({
       where: {
-        id: user.id
+        id: result.id
       }
     })
-    res.send("user deleted!")
+    .then(() => {
+      res.send("user deleted!")
+    })
     .catch(err => {
       res.send(err.message)
     })
