@@ -1,5 +1,19 @@
 # rest-api
 
+## Description
+This simple authentcation API meant to make a simple CRUD with an authentcation system
+
+#### Setup
+
+##### Hint
+The default database used is postgres but you can costom it with any sequelize-supported database such as:
+* mysql
+* sqlite3
+* etc
+
+
+
+
 | Route | HTTP | Description |
 | :-------------- | ---- | :------------------------- |
 | /api/signup  | POST | Sign up with new user info |
