@@ -1,0 +1,12 @@
+{
+  "development": {
+    "username": "zulfikarannur",
+    "password": "zoelfiekar231094",
+    "database": "rest_api_try2",
+    "host": "127.0.0.1",
+    "port" : "5432",
+    "dialect": "postgres"
+  },
+  "production": {
+  }
+}
