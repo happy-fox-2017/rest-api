@@ -3,26 +3,29 @@ const express = require('express');
 const router = express.Router();
 const userController = require('../controllers/users');
 
-const isAuthorized = require('../helpers/AuthUtils');
+const AuthUtils = require('../helpers/AuthUtils');
+
+const isAuthorizedAsAdmin = AuthUtils.isAuthorizedAsAdmin;
+const isAuthenticated = AuthUtils.isAuthenticated;
 
 /* GET users listing. */
-router.get('/', isAuthorized, function(req, res, next) {
+router.get('/', isAuthorizedAsAdmin, function(req, res, next) {
   userController.findAll(req, res);
 });
 
-router.get('/:id', function(req, res, next) {
+router.get('/:id', isAuthenticated, function(req, res, next) {
   userController.findAOne(req, res);
 });
 
-router.post('/', function(req, res, next) {
-  userController.create(req, res);
+router.post('/', isAuthorizedAsAdmin, function(req, res, next) {
+  userController.create(req, res, 'admin');
 });
 
-router.delete('/:id', function(req, res, next) {
+router.delete('/:id', isAuthorizedAsAdmin, function(req, res, next) {
   userController.delete(req, res);
 });
 
-router.put('/:id', function(req, res, next) {
+router.put('/:id', isAuthenticated, function(req, res, next) {
   userController.update(req, res);
 });
 

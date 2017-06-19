@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken');
 
 const TOKEN_PASSWORD = 'mypassword';
 
-const isAuthorized = function(req, res, next) {
+const isAuthorizedAsAdmin = function(req, res, next) {
   const token = req.headers.token;
 
   jwt.verify(token, TOKEN_PASSWORD, function(err, decoded) {
@@ -14,4 +14,19 @@ const isAuthorized = function(req, res, next) {
   });
 };
 
-module.exports = isAuthorized;
+const isAuthenticated = function(req, res, next) {
+  const token = req.headers.token;
+
+  jwt.verify(token, TOKEN_PASSWORD, function(err, decoded) {
+    if (decoded) {
+      next();
+    } else {
+      res.send('Unauthorized', 403);
+    }
+  });
+};
+
+module.exports = {
+  isAuthorizedAsAdmin,
+  isAuthenticated,
+};

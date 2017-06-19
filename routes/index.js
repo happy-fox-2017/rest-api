@@ -9,7 +9,7 @@ router.get('/', function(req, res, next) {
 });
 
 router.post('/signup', function(req, res, next) {
-  userController.create(req, res);
+  userController.create(req, res, 'user');
 });
 
 router.post('/signin', function(req, res, next) {

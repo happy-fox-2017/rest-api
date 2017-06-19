@@ -28,8 +28,9 @@ exports.findOne = function(req, res) {
   });
 };
 
-exports.create = function(req, res) {
+exports.create = function(req, res, role) {
   const userData = req.body;
+  userData.role = role;
   const password = userData.password;
 
   bcrypt.genSalt(saltRounds, function(err, salt) {
