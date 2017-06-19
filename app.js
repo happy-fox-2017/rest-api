@@ -25,7 +25,7 @@ passport.use(new LocalStore((username, password, done)=>{
     if(!passwordHash.verify(password, user.password)){
       return done(null, {message: 'Your Password is wrong!'});
     }
-    return done(null, err);
+    return done(null, user);
   })
   .catch((err)=>{
     return done(null, {message: 'Something Wrong!', err: err});
