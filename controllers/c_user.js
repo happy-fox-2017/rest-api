@@ -3,6 +3,7 @@ var jwt = require('jsonwebtoken')
 var bcrypt = require('bcrypt')
 const saltRounds = 10;
 var salt = bcrypt.genSaltSync(saltRounds);
+require('dotenv').config()
 
 var signup = function (req, res, next) {
 
@@ -29,7 +30,7 @@ var signin = function (req, res, next) {
   })
   .then(result => {
     if (bcrypt.compare(req.body.password, result.password)) {
-      var token = jwt.sign({username: result.username, role: result.role}, 'Myscret24@!!createisds!okdoskdokaDONTcop!!')
+      var token = jwt.sign({username: result.username, role: result.role}, process.env.secret)
       res.send(token)
     } else {
       res.send('no such user!')
