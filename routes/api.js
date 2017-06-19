@@ -1,15 +1,16 @@
 var express = require('express')
 var router = express.Router()
 var userController = require('../controller/userController')
+var helper = require('../helper/auth')
 
-// router.post('/signup', userController.signup)
-// router.post('/signin', userController.signin)
-router.get('/users', userController.getAll)
+router.post('/signup', userController.signup)
+router.post('/signin', userController.signin)
 router.get('/users/search', userController.search)
-router.get('/users/:id', userController.getOne)
-router.post('/users', userController.create)
-router.delete('/users/:id', userController.remove)
-router.put('/users/:id', userController.update)
+router.get('/users', helper.authAdmin, userController.getAll)
+router.get('/users/:id', helper.authAll, userController.getOne)
+router.post('/users', helper.authAdmin, userController.create)
+router.delete('/users/:id', helper.authAdmin, userController.remove)
+router.put('/users/:id', helper.authAll, userController.update)
 // router.patch('/users/:id', userController.patch)
 
 module.exports = router

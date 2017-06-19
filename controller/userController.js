@@ -1,4 +1,40 @@
 var db = require('../models')
+var bcrypt = require('bcrypt')
+var jwt = require('jsonwebtoken')
+var saltRounds = 10
+
+var signup = function (req,res) {
+  let hash = bcrypt.hashSync(req.body.password, saltRounds)
+  db.User.create({
+    name : req.body.name,
+    email : req.body.email,
+    password : hash,
+    role : req.body.role
+  }).then(user => {
+    res.send(user)
+  }).catch(err => {
+    res.send(err)
+  })
+}
+
+var signin = function (req,res) {
+  db.User.findOne({where : {email : req.body.email}})
+  .then(user => {
+    let pass = bcrypt.compareSync(req.body.password, user.password)
+    if (pass) {
+      var token = jwt.sign({
+        name : user.name,
+        role : user.role
+      }, 'rahasiakita')
+      res.send(token)
+    } else {
+      res.send("Password wrong")
+    }
+  })
+  .catch(err => {
+    res.send("email is not found")
+  })
+}
 
 var getAll = function (req,res) {
   db.User.findAll().then(users => {
@@ -10,7 +46,6 @@ var getAll = function (req,res) {
 
 var search = function (req,res) {
   let searchName = req.query.name
-  console.log(searchName);
   db.User.findAll({
     where : {
       name : {
@@ -81,4 +116,4 @@ var update = function (req,res) {
 //   }).catch(err => res.send(err))
 // }
 
-module.exports = {getAll,getOne,create,remove,update,search}
+module.exports = {getAll,getOne,create,remove,update,search,signin,signup}
