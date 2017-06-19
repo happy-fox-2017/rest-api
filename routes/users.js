@@ -1,55 +1,27 @@
 const express = require('express');
-const router = express.Router();
-const models = require('../models');
 
+const router = express.Router();
+const userController = require('../controllers/users');
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
-  models.User.findAll({
-    where: {},
-  })
-  .then((users) => {
-    res.json({ users });
-  });
+  userController.findAll(req, res);
 });
 
 router.get('/:id', function(req, res, next) {
-  const id = req.params.id;
-  models.User.findOne({
-    where: { id },
-  })
-  .then((user) => {
-    res.json({ user });
-  });
+  userController.findAOne(req, res);
 });
 
 router.post('/', function(req, res, next) {
-  const userData = req.body;
-  models.User.create(userData)
-  .then((result) => {
-    res.json({ result });
-  });
+  userController.create(req, res);
 });
 
 router.delete('/:id', function(req, res, next) {
-  const id = req.params.id;
-  models.User.destroy({
-    where: { id },
-  })
-  .then((result) => {
-    res.json({ result });
-  });
+  userController.delete(req, res);
 });
 
 router.put('/:id', function(req, res, next) {
-  const id = req.params.id;
-  const userData = req.body;
-  models.User.update(
-    userData,
-    { where: { id } })
-  .then((result) => {
-    res.json({ result });
-  });
+  userController.update(req, res);
 });
 
 module.exports = router;
