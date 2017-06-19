@@ -19,4 +19,6 @@ List of user routes :
 
 ##Usage
 
+With only postman
+
 Access the website via https://restfull-api-myapp.herokuapp.com/ or API via https://restfull-api-myapp.herokuapp.com/api
