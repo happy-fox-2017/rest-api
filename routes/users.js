@@ -6,7 +6,7 @@ var auth = require('../helpers/helper.js')
 
 /* GET users listing. */
 
-router.get('/',auth, conn.findSemua);
+router.get('/',auth, conn.findSemuaUsers);
 
 router.get('/:id', conn.findMelaluiId);
 

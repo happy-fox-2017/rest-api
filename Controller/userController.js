@@ -4,10 +4,20 @@ var db = require('../models')
 var jwt = require('jsonwebtoken');
 
 
-let findSemua = function(req, res, next) {
-  db.User.findAll()
+let findSemuaUsers = function(req, res, next) {
+  db.User.findAll({
+    where: {
+      role: 'user'
+    }
+  })
   .then((users) => {
-    res.send(users)
+    // console.log(users);
+    if (users.length == 0) {
+       res.send('there is no user listed')
+    }
+    else {
+      res.send(users)
+    }
   })
 }
 
@@ -27,7 +37,8 @@ let bikinUser = function(req, res, next){
   db.User.create({
     username: req.body.username,
     password: hashNih(req.body.password),
-    role: 'user'
+    role: 'user',
+    name: req.body.name
   })
   .then(() => {
     res.send('data created');
@@ -67,10 +78,10 @@ let signin = (req, res) => {
   })
   .then(user => {
     if (bcrypt.compareSync(req.body.password, user.password)) {
-      console.log(user.role);
+      // console.log(user.role);
       var token = jwt.sign({name: user.name, role: user.role}, 'secret-key')
       // req.headers.token = token
-      console.log(token);
+      // console.log(token);
       res.send('masuk, token: ' + token)
     } else {
       res.send('username or password not matched')
@@ -78,4 +89,4 @@ let signin = (req, res) => {
   })
 }
 
-module.exports = {findSemua, findMelaluiId, bikinUser, hapusUser, perbaharuiUser, signin};
+module.exports = {findSemuaUsers, findMelaluiId, bikinUser, hapusUser, perbaharuiUser, signin};
