@@ -1,0 +1,38 @@
+{
+  "name": "rest-api",
+  "version": "0.2.0",
+  "private": true,
+  "scripts": {
+    "start": "nodemon ./bin/www"
+  },
+  "dependencies": {
+    "body-parser": "~1.17.1",
+    "cookie-parser": "~1.4.3",
+    "cors": "^2.8.3",
+    "debug": "~2.6.3",
+    "express": "~4.15.2",
+    "jade": "~1.11.0",
+    "mongoose": "^4.10.7",
+    "morgan": "~1.8.1",
+    "sequelize": "^4.1.0",
+    "serve-favicon": "~2.4.2",
+    "sqlite3": "^3.1.8"
+  },
+  "description": "rest-api dari happy",
+  "main": "app.js",
+  "devDependencies": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sidikriders/rest-api.git"
+  },
+  "keywords": [
+    "rest",
+    "api"
+  ],
+  "author": "sidikriders",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sidikriders/rest-api/issues"
+  },
+  "homepage": "https://github.com/sidikriders/rest-api#readme"
+}
