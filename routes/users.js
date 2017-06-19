@@ -3,8 +3,10 @@ const express = require('express');
 const router = express.Router();
 const userController = require('../controllers/users');
 
+const isAuthorized = require('../helpers/AuthUtils');
+
 /* GET users listing. */
-router.get('/', function(req, res, next) {
+router.get('/', isAuthorized, function(req, res, next) {
   userController.findAll(req, res);
 });
 

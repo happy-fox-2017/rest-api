@@ -78,6 +78,7 @@ exports.signIn = function(req, res) {
         if (bcryptResult) {
           const token = jwt.sign({
             name: user.name,
+            role: user.role
           }, TOKEN_PASSWORD);
           res.send(token);
         } else {
