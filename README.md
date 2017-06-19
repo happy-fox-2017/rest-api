@@ -2,30 +2,18 @@
 Demo App with basic Rest API.
 
 ##REST API
-List of basic routes :
-
-| Router                  | HTTP | Description           |
-|------------------------|------|-----------------------|
-| /api/hello?name={name} | GET  | Print hello, {name} ! |
-
 List of user routes :
 
-| Route          | HTTP   | Description                          |
-|----------------|--------|--------------------------------------|
-| /api/users     | GET    | Get all the users                    |
-| /api/users/:id | GET    | Get a single user                    |
-| /api/users     | POST   | Create a User                        |
-| /api/users/:id | DELETE | Delete a User                        |
-| /api/users/:id | PUT    | Update a user with new info          |
-| /api/users/:id | PATCH  | Update a user with specific new info |
+|      Route     |  HTTP  |                         Description                        |
+|:--------------:|:------:|:----------------------------------------------------------:|
+| /api/signup    | POST   | Sign up with new user info                                 |
+| /api/signin    | POST   | Sign in while get an access token based on credentials     |
+| /api/users     | GET    | Get all the users info (admin only)                        |
+| /api/users/:id | GET    | Get a single user info (admin and authenticated user)      |
+| /api/users     | POST   | Create a user (admin only)                                 |
+| /api/users/:id | DELETE | Delete a user (admin only)                                 |
+| /api/users/:id | PUT    | Update a user with new info (admin and authenticated user) |
 
-
-List of Filter routes :
-
-| Route                    | HTTP | Description               |
-|--------------------------|------|---------------------------|
-| /api/users?name="{name}" | GET  | Get {name} match in users |
-| /api/users?name="{na}"   | GET  | Get {na} like in users    |
 
 ***
 
