@@ -19,11 +19,4 @@ List of user routes :
 
 ##Usage
 
-With only npm :
-```
-npm install
-npm start
-npm run dev
-```
-
 Access the website via https://restfull-api-myapp.herokuapp.com/ or API via https://restfull-api-myapp.herokuapp.com/api
