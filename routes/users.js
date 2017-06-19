@@ -2,17 +2,18 @@ var express = require('express');
 var router = express.Router();
 var db = require('../models')
 var conn = require('../Controller/userController.js')
+var auth = require('../helpers/helper.js')
 
 /* GET users listing. */
 
-router.get('/', conn.findSemua);
+router.get('/',auth, conn.findSemua);
 
 router.get('/:id', conn.findMelaluiId);
 
-router.post('/', conn.bikin)
+router.post('/', auth, conn.bikinUser)
 
-router.delete('/:id', conn.hapus)
+router.delete('/:id', auth, conn.hapusUser)
 
-router.put('/:id', conn.perbaharui)
+router.put('/:id', conn.perbaharuiUser)
 
 module.exports = router;

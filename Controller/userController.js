@@ -1,5 +1,8 @@
 var bcrypt = require('bcrypt');
 var salt = bcrypt.genSaltSync(10);
+var db = require('../models')
+var jwt = require('jsonwebtoken');
+
 
 let findSemua = function(req, res, next) {
   db.User.findAll()
@@ -15,7 +18,7 @@ let findMelaluiId = function(req, res, next) {
   })
 }
 
-let bikin = function(req, res, next){
+let bikinUser = function(req, res, next){
   let hashNih = function(pass) {
     var hash = bcrypt.hashSync(pass, salt);
     return hash
@@ -31,7 +34,7 @@ let bikin = function(req, res, next){
   })
 }
 
-let hapus =  function(req, res) {
+let hapusUser =  function(req, res) {
   db.User.destroy({
     where: {
       id: req.params.id
@@ -42,9 +45,10 @@ let hapus =  function(req, res) {
   })
 }
 
-let perbaharui =  function(req,res) {
+let perbaharuiUser =  function(req,res) {
   db.User.update({
-    name: req.body.name
+    name: req.body.name,
+    username: req.body.username
   },{
     where: {
       id: req.params.id
@@ -55,4 +59,23 @@ let perbaharui =  function(req,res) {
   })
 }
 
-module.exports = {findSemua, findMelaluiId, bikin, hapus, perbaharui};
+let signin = (req, res) => {
+  db.User.findOne({
+    where: {
+      username: req.body.username
+    }
+  })
+  .then(user => {
+    if (bcrypt.compareSync(req.body.password, user.password)) {
+      console.log(user.role);
+      var token = jwt.sign({name: user.name, role: user.role}, 'secret-key')
+      // req.headers.token = token
+      console.log(token);
+      res.send('masuk, token: ' + token)
+    } else {
+      res.send('username or password not matched')
+    }
+  })
+}
+
+module.exports = {findSemua, findMelaluiId, bikinUser, hapusUser, perbaharuiUser, signin};
