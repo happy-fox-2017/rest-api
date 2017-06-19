@@ -15,7 +15,6 @@ Route | HTTP | Description
 /api/users | POST | Create a user
 /api/users/:id | DELETE | Delete a user
 /api/users/:id | PUT | Update a user with new info
-/api/users/:id | PATCH | Update a user with specific info
 
 ## List of filter routes
 
