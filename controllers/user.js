@@ -1,12 +1,13 @@
 "use strict"
 const jwt = require('jsonwebtoken');
-const User = require('../models/user');
-const passwordHash = require('passowrd-hash');
+const model = require('../models');
+const passwordHash = require('password-hash');
 
+//var User = new model.User();
 var models = {};
 
 models.index = function(req, res){
-  User.findAll()
+  model.User.findAll()
   .then((result)=>{
     res.send({
       data: result,
@@ -22,7 +23,7 @@ models.index = function(req, res){
 }
 
 models.show = function(req, res){
-  User.findOne({
+  model.User.findOne({
     where: {
       id: req.params.id
     }
@@ -34,7 +35,31 @@ models.show = function(req, res){
     })
   })
   .catch((err)=>{
-    data: err,
-    msg: 'something wrong!!'
+    res.send({
+      data: err,
+      msg: 'something wrong!!'
+    })
   })
 }
+
+models.update = function(req, res){
+  model.User.findOne({
+    where: {
+      id: req.params.id
+    }
+  })
+  .then((result)=>{
+    let body = req.body;
+    let value = result.dataValues;
+    result.updateAttributes({
+      name: body.name || value.name,
+      username: body.username || value.username,
+      email: body.email || value.email,
+      phone: body.phone || value.phone,
+      password: passwordHash.generate(body.password) || value.password,
+      role: body.role || 'user'
+    })
+  })
+}
+
+module.exports = models;

@@ -18,3 +18,6 @@
 |/api/users/:id |DELETE    | Delete data user    |
 |/api/users/signin|POST    | authentication user |
 |/api/users/signup| POST    | to create new user  |
+
+>**authentication** making with ***password-hash*** and ***jsonwebtoken***
+>install localy with npm package, `npm install --save passowrd-hash jsonwebtoken`

@@ -4,9 +4,33 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var passport = require('passport');
+var passwordHash = require('password-hash');
+var LocalStore = require('passport-local');
+var models = require('./models');
 
 var index = require('./routes/index');
 var users = require('./routes/users');
+
+passport.use(new LocalStore((username, password, done)=>{
+  models.User.findOne({
+    where: {
+      username: username
+    }
+  })
+  .then((user)=>{
+    if(!user){
+      return done(null, {message: 'Username not found, please sign up first!'});
+    }
+    if(!passwordHash.verify(password, user.password)){
+      return done(null, {message: 'Your Password is wrong!'});
+    }
+    return done(null, err);
+  })
+  .catch((err)=>{
+    return done(null, {message: 'Something Wrong!', err: err});
+  })
+}));
 
 var app = express();
 
