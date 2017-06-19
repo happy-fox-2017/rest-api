@@ -13,4 +13,12 @@ router.get('/', function(req, res, next) {
   });
 });
 
+router.post('/', function(req, res, next) {
+  const userData = req.body;
+  models.User.create(userData)
+  .then((result) => {
+    res.json({ result });
+  });
+});
+
 module.exports = router;
