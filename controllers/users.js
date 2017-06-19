@@ -1,4 +1,13 @@
+const jwt = require('jsonwebtoken');
+const bcrypt = require('bcrypt');
 const models = require('../models');
+
+const saltRounds = 10;
+const TOKEN_PASSWORD = 'mypassword';
+
+const sendLoginFailedMessage = function(req, res) {
+  res.send('Invalid username or password', 403);
+};
 
 exports.findAll = function(req, res) {
   models.User.findAll({
@@ -21,9 +30,16 @@ exports.findOne = function(req, res) {
 
 exports.create = function(req, res) {
   const userData = req.body;
-  models.User.create(userData)
-  .then((result) => {
-    res.json({ result });
+  const password = userData.password;
+
+  bcrypt.genSalt(saltRounds, function(err, salt) {
+    bcrypt.hash(password, salt, function(err, hash) {
+      userData.password = hash;
+      models.User.create(userData)
+      .then((result) => {
+        res.json({ result });
+      });
+    });
   });
 };
 
@@ -40,10 +56,36 @@ exports.delete = function(req, res) {
 exports.update = function(req, res) {
   const id = req.params.id;
   const userData = req.body;
+  delete userData.password;
   models.User.update(
     userData,
     { where: { id } })
   .then((result) => {
     res.json({ result });
   });
-}
+};
+
+exports.signIn = function(req, res) {
+  const username = req.body.username;
+  const password = req.body.password;
+
+  models.User.findOne({
+    where: { username },
+  })
+  .then((user) => {
+    if (user !== null) {
+      bcrypt.compare(password, user.password, function(err, bcryptResult) {
+        if (bcryptResult) {
+          const token = jwt.sign({
+            name: user.name,
+          }, TOKEN_PASSWORD);
+          res.send(token);
+        } else {
+          sendLoginFailedMessage(req, res);
+        }
+      });
+    } else {
+      sendLoginFailedMessage(req, res);
+    }
+  });
+};
