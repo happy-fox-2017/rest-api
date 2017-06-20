@@ -5,7 +5,7 @@
  */
 
 var app = require('../app');
-var debug = require('debug')('rest-api:server');
+var debug = require('debug')('rest-api-crud:server');
 var http = require('http');
 
 /**
